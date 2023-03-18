@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Alert, Text, Image } from "react-native";
 import {
   getCurrentPositionAsync,
@@ -13,6 +14,7 @@ import OutlinedButton from "../UI/OutlinedButton";
 function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState();
 
+  const navigation = useNavigation();
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
 
@@ -37,6 +39,7 @@ function LocationPicker() {
     return true;
   }
 
+  //* Function which get the current location of the user
   async function getLocationHandler() {
     const hasPermission = await verifyPermissions();
 
@@ -52,7 +55,10 @@ function LocationPicker() {
     });
   }
 
-  function pickOnMapHandler() {}
+  //* A function, where can user pick the location on the map
+  function pickOnMapHandler() {
+    navigation.navigate("Map");
+  }
 
   let locationPreview = <Text>No location picked yet.</Text>;
 
