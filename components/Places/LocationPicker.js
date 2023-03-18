@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import {
+  useNavigation,
+  useRoute,
+  useIsFocused,
+} from "@react-navigation/native";
 import { View, StyleSheet, Alert, Text, Image } from "react-native";
 import {
   getCurrentPositionAsync,
@@ -15,8 +19,22 @@ function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState();
 
   const navigation = useNavigation();
+  const route = useRoute();
+  const isFocused = useIsFocused();
+
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+
+  //*Set picked location if there is one (from Map screen)
+  useEffect(() => {
+    if (isFocused && route.params) {
+      const mapPickedLocation = {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route, isFocused]);
 
   //* Helper function for handling a location permissions
   async function verifyPermissions() {
