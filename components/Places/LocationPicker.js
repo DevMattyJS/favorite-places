@@ -12,7 +12,7 @@ import {
 } from "expo-location";
 
 import { Colors } from "../../constants/colors";
-import { getMapPreview } from "../../util/location";
+import { getMapPreview, getAddress } from "../../util/location";
 import OutlinedButton from "../UI/OutlinedButton";
 
 function LocationPicker({ onPickLocation }) {
@@ -38,7 +38,17 @@ function LocationPicker({ onPickLocation }) {
 
   //* Pass location data via props to PlaceForm component => this should work in both scenarios (pick on map, locate the user)
   useEffect(() => {
-    onPickLocation(pickedLocation);
+    async function handleLocation() {
+      if (pickedLocation) {
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        onPickLocation({ ...pickedLocation, address: address });
+      }
+    }
+
+    handleLocation();
   }, [pickedLocation, onPickLocation]);
 
   //* Helper function for handling a location permissions
