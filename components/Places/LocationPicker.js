@@ -15,7 +15,7 @@ import { Colors } from "../../constants/colors";
 import { getMapPreview } from "../../util/location";
 import OutlinedButton from "../UI/OutlinedButton";
 
-function LocationPicker() {
+function LocationPicker({ onPickLocation }) {
   const [pickedLocation, setPickedLocation] = useState();
 
   const navigation = useNavigation();
@@ -35,6 +35,11 @@ function LocationPicker() {
       setPickedLocation(mapPickedLocation);
     }
   }, [route, isFocused]);
+
+  //* Pass location data via props to PlaceForm component => this should work in both scenarios (pick on map, locate the user)
+  useEffect(() => {
+    onPickLocation(pickedLocation);
+  }, [pickedLocation, onPickLocation]);
 
   //* Helper function for handling a location permissions
   async function verifyPermissions() {

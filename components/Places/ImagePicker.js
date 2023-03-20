@@ -9,7 +9,7 @@ import {
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 
-function ImagePicker() {
+function ImagePicker({ onTakeImage }) {
   const [pickedImage, setPickedImage] = useState();
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
@@ -48,6 +48,8 @@ function ImagePicker() {
     });
 
     setPickedImage(image.uri);
+    //* Pass image uri via props to PlaceForm component
+    onTakeImage(image.uri);
   }
 
   //* A fallback text will be shown until we will have image taken

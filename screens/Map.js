@@ -13,7 +13,7 @@ function Map({ navigation }) {
     longitudeDelta: 0.0421,
   };
 
-  function seletLocationHandler(event) {
+  function selectLocationHandler(event) {
     const lat = event.nativeEvent.coordinate.latitude;
     const lng = event.nativeEvent.coordinate.longitude;
 
@@ -54,7 +54,7 @@ function Map({ navigation }) {
     <MapView
       style={styles.map}
       initialRegion={region}
-      onPress={seletLocationHandler}
+      onPress={selectLocationHandler}
     >
       {selectedLocation ? (
         <Marker
