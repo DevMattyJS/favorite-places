@@ -1,10 +1,9 @@
 import { useCallback, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TextInput } from "react-native";
 
-import ImagePicker from "./ImagePicker";
-
 import { Colors } from "../../constants/colors";
 import { Place } from "../../models/place";
+import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import Button from "../UI/Button";
 
